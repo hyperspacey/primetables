@@ -14,6 +14,7 @@ Pleased with:
 - 	Has simple unit test
 - 	Algorithm is fairly straightforward and well commented
 -	Can display fairly large prime multiplication values
+-	Can generate large primes quickly (200000 primes in 23ms on a 7th-gen i7 running @ 4.2GHz)
 -	Asynchronous execution so no application hangs
 
 What to do with more time:
@@ -28,3 +29,4 @@ What to do with more time:
 	to a file. By 20000 primes, the output file will be approx. 1GB and too large to open even in Notepad++.
 -	Producing a subset of prime multiplication tables seems like an obvious progression, that would mitigate the above
 -	Needs better exception handling
+-	The (naive) implementation of the output writer calculates multiplications twice; I should reuse values already generated
