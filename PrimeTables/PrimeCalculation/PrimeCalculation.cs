@@ -10,6 +10,8 @@ namespace PrimeTables
         // All primes are positive, so use an unsigned int
         List<ulong> primes;
 
+        public int PrimeCount { get { return primes.Count; } }
+
         public PrimeCalculation(int numPrimes)
         {
             // Initialise our primes
@@ -64,7 +66,7 @@ namespace PrimeTables
             }
             else
             {
-                return 11;
+                return 12;
             }
         }
 
@@ -76,6 +78,12 @@ namespace PrimeTables
                 throw new Exception("Out of bounds, have " + primes.Count + " primes, can't get index "+i);
             }
             return primes[i];
+        }
+
+        // Return the largest prime in the set
+        public ulong GetLargestPrime()
+        {
+            return primes[primes.Count - 1];
         }
     }
 }
