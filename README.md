@@ -10,7 +10,7 @@ How to run:
 Pleased with:
 - 	Has simple unit test
 - 	Algorithm is fairly straightforward and well commented
--	
+-	Can display fairly large prime multiplication values
 
 What to do with more time:
 - 	There are better implementations of prime-finding; one such example is an answer 

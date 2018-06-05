@@ -33,8 +33,8 @@ namespace PrimeTables
             this.InstructionLabel = new System.Windows.Forms.Label();
             this.inputText = new System.Windows.Forms.TextBox();
             this.okButton = new System.Windows.Forms.Button();
-            this.output = new System.Windows.Forms.TextBox();
             this.ResultLabel = new System.Windows.Forms.Label();
+            this.output = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // InstructionLabel
@@ -52,7 +52,7 @@ namespace PrimeTables
             this.inputText.Name = "inputText";
             this.inputText.Size = new System.Drawing.Size(115, 20);
             this.inputText.TabIndex = 1;
-            this.inputText.KeyDown += new KeyEventHandler(this.inputText_KeyDown);
+            this.inputText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.inputText_KeyDown);
             // 
             // okButton
             // 
@@ -64,8 +64,18 @@ namespace PrimeTables
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
+            // ResultLabel
+            // 
+            this.ResultLabel.AutoSize = true;
+            this.ResultLabel.Location = new System.Drawing.Point(16, 65);
+            this.ResultLabel.Name = "ResultLabel";
+            this.ResultLabel.Size = new System.Drawing.Size(37, 13);
+            this.ResultLabel.TabIndex = 4;
+            this.ResultLabel.Text = "Result";
+            // 
             // output
             // 
+            this.output.AcceptsReturn = true;
             this.output.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -77,15 +87,7 @@ namespace PrimeTables
             this.output.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.output.Size = new System.Drawing.Size(663, 335);
             this.output.TabIndex = 3;
-            // 
-            // ResultLabel
-            // 
-            this.ResultLabel.AutoSize = true;
-            this.ResultLabel.Location = new System.Drawing.Point(16, 65);
-            this.ResultLabel.Name = "ResultLabel";
-            this.ResultLabel.Size = new System.Drawing.Size(37, 13);
-            this.ResultLabel.TabIndex = 4;
-            this.ResultLabel.Text = "Result";
+            this.output.WordWrap = false;
             // 
             // InterfaceForm
             // 
@@ -109,8 +111,8 @@ namespace PrimeTables
         private System.Windows.Forms.Label InstructionLabel;
         private System.Windows.Forms.TextBox inputText;
         private System.Windows.Forms.Button okButton;
-        private System.Windows.Forms.TextBox output;
         private System.Windows.Forms.Label ResultLabel;
+        private TextBox output;
     }
 }
 
