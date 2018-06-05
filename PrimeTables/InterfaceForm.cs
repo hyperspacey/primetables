@@ -34,8 +34,16 @@ namespace PrimeTables
             if (canCalculate)
             {
                 output.Text = "Working...";
-                string result = await Task.Run(async () => { return await SaveOutput(numPrimes); });
-                output.Text = result;
+                try
+                {
+                    string result = await Task.Run(async () => { return await SaveOutput(numPrimes); });
+                    output.Text = result;
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Exception, failed to generate because: " + exception.Message);
+                    output.Text = "";
+                }
             }
             else
             {
