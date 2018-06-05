@@ -10,7 +10,7 @@ namespace PrimeTables
         // All primes are positive, so use an unsigned int
         List<ulong> primes;
 
-        public int PrimeCount { get { return primes.Count; } }
+        public IList<ulong> Primes { get { return primes; } }
 
         public PrimeCalculation(int numPrimes)
         {
