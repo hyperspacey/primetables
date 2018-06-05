@@ -8,12 +8,13 @@ How to run:
 - 	Run PrimeTables.exe
 -	Enter your value for number of primes
 -	Press Generate
-- 	Output will be send to output.txt
+- 	Output will be send to output.txt. Note that this is best read with Notepad++; Notepad starts wordwrapping
 
 Pleased with:
 - 	Has simple unit test
 - 	Algorithm is fairly straightforward and well commented
 -	Can display fairly large prime multiplication values
+-	Asynchronous execution so no application hangs
 
 What to do with more time:
 - 	There are better implementations of prime-finding; one such example is an answer 

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PrimeTables
 {
     public partial class InterfaceForm : Form
     {
+        private static string outputPath = "output.txt";
+
         public InterfaceForm()
         {
             InitializeComponent();
@@ -24,13 +27,15 @@ namespace PrimeTables
             }
         }
 
-        private void CalculateOutput()
+        private async void CalculateOutput()
         {
             int numPrimes = 0;
             bool canCalculate = Int32.TryParse(inputText.Text, out numPrimes);
             if (canCalculate)
             {
-                output.Text = SaveOutput(numPrimes);
+                output.Text = "Working...";
+                string result = await Task.Run(async () => { return await SaveOutput(numPrimes); });
+                output.Text = result;
             }
             else
             {
@@ -39,7 +44,7 @@ namespace PrimeTables
             }
         }
 
-        private string SaveOutput(int numPrimes)
+        private async Task<string> SaveOutput(int numPrimes)
         {
             PrimeCalculation calculation = new PrimeCalculation(numPrimes);
 
@@ -48,7 +53,7 @@ namespace PrimeTables
 
 
             // Fill our output
-            using (StreamWriter writer = new StreamWriter("output.txt"))
+            using (StreamWriter writer = new StreamWriter(outputPath))
             {
                 string tempEntryString = "";
                 for (int i = 0; i < numPrimes + 1; ++i)
@@ -64,21 +69,23 @@ namespace PrimeTables
                             tempEntryString = resultEntries[i, j].ToString();
                         }
 
-                        writer.Write("|");
-                        writer.Write (tempEntryString);
+                        await writer.WriteAsync("|");
+                        await writer.WriteAsync(tempEntryString);
                         for (int k = tempEntryString.Length; k < columnWidths[j]; ++k)
                         {
-                            writer.Write(" ");
+                            await writer.WriteAsync(" ");
                         }
 
                         if (j == numPrimes)
                         {
                             // Cap row
-                            writer.Write("|");
-                            writer.Write(Environment.NewLine);
+                            await writer.WriteAsync("|");
+                            await writer.WriteAsync(Environment.NewLine);
                         }
                     }
                 }
+
+                System.Diagnostics.Process.Start(outputPath);
                 return "Success";
             }
         }
