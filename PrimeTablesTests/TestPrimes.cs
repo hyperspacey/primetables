@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PrimeTables.PrimeCalculation;
+using PrimeTables;
 using System;
 using System.Collections.Generic;
 
@@ -8,14 +8,13 @@ namespace PrimeTablesTests
     [TestClass]
     public class TestPrimes
     {
-        private static int TEST_PRIME_COUNT = 100;
+        private static int TEST_PRIME_COUNT = 200000;
 
         [TestMethod]
         public void TestPrimeGeneration()
         {
             // BENCHMARK THIS
-            PrimeCalculation primeCalculation = new PrimeCalculation();
-            primeCalculation.CalculatePrimes(TEST_PRIME_COUNT);
+            PrimeCalculation primeCalculation = new PrimeCalculation(TEST_PRIME_COUNT);
             // END BENCHMARK
 
             // List our primes so we can check them for false negatives

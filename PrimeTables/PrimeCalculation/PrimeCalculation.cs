@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PrimeTables.PrimeCalculation
+namespace PrimeTables
 {
     // Uses Sieve of Eratosthenes method https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
     public class PrimeCalculation
@@ -11,14 +11,16 @@ namespace PrimeTables.PrimeCalculation
         List<ulong> primes;
 
         // Limit to Int32.MaxValue primes
-        public void CalculatePrimes(int numPrimes)
+        public int MaximumPrimes { get { return Int32.MaxValue; } }
+
+        public PrimeCalculation(int numPrimes)
         {
             // Initialise our primes
             primes = new List<ulong> ();
             primes.Add(2);
 
             // Generate a seive and while doing so, add any primes to our array until we have numPrimes
-            ulong primeBound = (ulong)Math.Ceiling(numPrimes * Math.Log(numPrimes * Math.Log(numPrimes)));
+            ulong primeBound = UpperPrimeBound(numPrimes);
             bool[] isPrime = new bool[primeBound];
 
             // Everything from 2 onwards is possibly a prime
@@ -55,10 +57,18 @@ namespace PrimeTables.PrimeCalculation
         }
 
         // Return the upper bound for the nth prime number
-        // According to Rosser (1941) the nth prime must be less than n*log(n*(log(n))))
+        // According to Rosser (1941) the nth prime must be less than n*log(n*(log(n)))) for n >= 6
+        // Less than this, return the 5th prime's value (for compatibility)
         public static ulong UpperPrimeBound(int n)
         {
-            return (ulong)Math.Ceiling(n * Math.Log(n * Math.Log(n)));
+            if (n >= 6)
+            {
+                return (ulong)Math.Ceiling(n * Math.Log(n * Math.Log(n)));
+            }
+            else
+            {
+                return 11;
+            }
         }
 
         // Return the nth prime number
