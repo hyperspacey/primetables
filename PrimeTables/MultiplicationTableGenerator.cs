@@ -5,31 +5,32 @@ namespace PrimeTables
     public class MultiplicationTableGenerator
     {
         // Return a multiplication table based on an input set
-        public static string[,] GetMultiplicationTable(IList<ulong> values, out int[] columnWidths)
+        public static float[,] GetMultiplicationTable(IList<ulong> values, out int[] columnWidths)
         {
             // Generate the values we'll use to populate the result text
 
             columnWidths = new int[values.Count + 1];
-            string[,] results = new string[values.Count + 1, values.Count + 1];
+            float[,] results = new float[values.Count + 1, values.Count + 1];
 
             // Blank entry in top left
-            results[0, 0] = "";
+            results[0, 0] = 0;
             columnWidths[0] = 0;
 
+            string resultString = "";
             // Fill column and row 0 with primes
             for (int i = 0; i < values.Count; ++i)
             {
                 int columnRowIndex = i + 1;
-                string resultString = values[i].ToString();
-                results[0, columnRowIndex] = resultString;
+                results[0, columnRowIndex] = values[i];
 
+                resultString = values[i].ToString();
                 if (resultString.Length > columnWidths[0])
                 {
                     columnWidths[0] = resultString.Length;
                 }
 
                 // All other columns get their headers set
-                results[columnRowIndex, 0] = resultString;
+                results[columnRowIndex, 0] = values[i];
                 columnWidths[columnRowIndex] = resultString.Length;
             }
 
@@ -40,17 +41,15 @@ namespace PrimeTables
                     ulong valA = values[i];
                     ulong valB = values[j];
 
-                    // Check if we can represent this as a ulong or not...
-                    double resultValue = valA * valB;
-                    string resultString = "";
-
-                    resultString = resultValue.ToString();
+                    // Possible loss of information here
+                    float resultValue = valA * valB;
 
                     // Result indexes are off by one vs prime indexes
                     int rowIndex = i + 1;
                     int columnIndex = j + 1;
-                    results[rowIndex, columnIndex] = resultString;
+                    results[rowIndex, columnIndex] = resultValue;
 
+                    resultString = resultValue.ToString();
                     // Adjust our column width if need be
                     if (resultString.Length > columnWidths[columnIndex])
                     {

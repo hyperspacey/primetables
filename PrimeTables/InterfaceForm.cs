@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 namespace PrimeTables
@@ -30,7 +30,7 @@ namespace PrimeTables
             bool canCalculate = Int32.TryParse(inputText.Text, out numPrimes);
             if (canCalculate)
             {
-                output.Text = GenerateOutput(numPrimes);
+                output.Text = SaveOutput(numPrimes);
             }
             else
             {
@@ -39,36 +39,48 @@ namespace PrimeTables
             }
         }
 
-        private string GenerateOutput(int numPrimes)
+        private string SaveOutput(int numPrimes)
         {
-            string primeResult = "";
             PrimeCalculation calculation = new PrimeCalculation(numPrimes);
 
             int[] columnWidths;
-            string[,] resultEntries = MultiplicationTableGenerator.GetMultiplicationTable(calculation.Primes, out columnWidths);
+            float[,] resultEntries = MultiplicationTableGenerator.GetMultiplicationTable(calculation.Primes, out columnWidths);
+
 
             // Fill our output
-            for (int i = 0; i < numPrimes+1; ++i)
+            using (StreamWriter writer = new StreamWriter("output.txt"))
             {
-                for (int j = 0; j < numPrimes+1; ++j)
+                string tempEntryString = "";
+                for (int i = 0; i < numPrimes + 1; ++i)
                 {
-                    string resultEntry = resultEntries[i, j];
-                    string resultString = GetEntryString(resultEntry, columnWidths[j]);
-                    primeResult += resultString;
-                    if (j == numPrimes)
+                    for (int j = 0; j < numPrimes + 1; ++j)
                     {
-                        // Cap row
-                        primeResult += "|" + Environment.NewLine;
+                        if (i == 0 && j == 0)
+                        {
+                            tempEntryString = "";
+                        }
+                        else
+                        {
+                            tempEntryString = resultEntries[i, j].ToString();
+                        }
+
+                        writer.Write("|");
+                        writer.Write (tempEntryString);
+                        for (int k = tempEntryString.Length; k < columnWidths[j]; ++k)
+                        {
+                            writer.Write(" ");
+                        }
+
+                        if (j == numPrimes)
+                        {
+                            // Cap row
+                            writer.Write("|");
+                            writer.Write(Environment.NewLine);
+                        }
                     }
                 }
+                return "Success";
             }
-            return primeResult;
-        }
-
-        private string GetEntryString(string content, int width)
-        {
-            string formatString = "{0," + width + "}";
-            return "|" + string.Format(formatString,content);
         }
     }
 }
