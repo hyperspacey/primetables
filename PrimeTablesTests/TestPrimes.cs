@@ -2,6 +2,7 @@
 using PrimeTables;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace PrimeTablesTests
 {
@@ -10,12 +11,15 @@ namespace PrimeTablesTests
     {
         private static int TEST_PRIME_COUNT = 200000;
 
+        public TestContext TestContext { get; set; }
+
         [TestMethod]
         public void TestPrimeGeneration()
         {
-            // BENCHMARK THIS
+            Stopwatch sw = Stopwatch.StartNew();
             PrimeCalculation primeCalculation = new PrimeCalculation(TEST_PRIME_COUNT);
-            // END BENCHMARK
+            sw.Stop();
+            TestContext.WriteLine(message: "Generated " +TEST_PRIME_COUNT+" primes in "+sw.ElapsedMilliseconds+"ms");
 
             // List our primes so we can check them for false negatives
             HashSet<ulong> foundPrimes = new HashSet<ulong>();
